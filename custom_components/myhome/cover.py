@@ -159,7 +159,5 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
             self._attr_is_closed = message.is_closed
         if message.current_position is not None:
             self._attr_current_cover_position = message.current_position
-        if message.state == 0:
-            await self._gateway_handler.send(OWNAutomationCommand.dimension(self._full_where))
 
         self.async_schedule_update_ha_state()
