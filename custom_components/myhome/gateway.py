@@ -35,6 +35,7 @@ from OWNd.message import (
     OWNLightingCommand,
     OWNEnergyEvent,
     OWNAutomationEvent,
+    OWNAutomationCommand,
     OWNDryContactEvent,
     OWNAuxEvent,
     OWNHeatingEvent,
@@ -255,6 +256,9 @@ class MyHOMEGatewayHandler:
                                     "event": event,
                                 },
                             )
+                        else:                
+                            if message.state == 0:
+                                await self.send(OWNAutomationCommand.dimension_request(message.where))
                     if not is_event:
                         if isinstance(message, OWNLightingEvent) and message.brightness_preset:
                             if isinstance(
